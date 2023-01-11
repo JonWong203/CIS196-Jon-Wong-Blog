@@ -1,0 +1,182 @@
+<html>
+
+<head>
+  <title>My Map</title>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+
+  <link rel="stylesheet" type="text/css" href="./style.css" />
+  <script type="module" src="index.js"></script>
+</head>
+<body>
+<h1> <%= @user.full_name %>'s Travels</h1>
+
+<table id="table">
+  <thead class="thead-dark">
+  <tr>
+    <th scope="col">Streets</th>
+    <th scope="col">Latitude</th>
+    <th scope="col">Longitude</th>
+  </tr>
+  </thead>
+  <tbody>
+
+  <% Street.all.each_with_index do |street, index| %>
+
+    <% if @user.streets.include?(street) %>
+      <tr>
+        <td><%= street.street_name %></td>
+        <td><%= street.latitude %></td>
+        <td><%= street.longitude %></td>
+      </tr>
+    <% end %>
+  <% end %>
+  </table>
+
+
+
+
+
+
+<!--  <div id="map">-->
+<!--  </div>-->
+<!--<script-->
+<!--  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD5UU8paF_r2V1m4SF_G1ugD7olOGsSICw&callback=initAutocomplete&libraries=places&v=weekly"-->
+<!--  defer>-->
+<!--</script>-->
+<br>
+  <%= render "map" %>
+<br>
+
+<input id="pac-input" class="controls" style="height: 50px; width: 80%;" type="text" placeholder="Add Travel Destination" />
+  <%= render "streets/form", street: @street %>
+
+
+  <script>
+    // var table = document.getElementById("table"), rIndex, cIndex;
+    // for (var i = 0; i  < table.rows.length; i++){
+    //     table.rows[i][1]
+    //     for (var j = 0; j < table.rows[i].cells.length; j++){
+    //
+    //     }
+    // }
+  </script>
+
+  <%# @user.streets do |street, index| %>
+
+<!--      <tr>-->
+<!--        <th scope="row"><%# index %></th>-->
+<!--        <td><%#= street.street_name %></td>-->
+<!--      </tr>-->
+  <%# end %>
+  </tbody>
+</table>
+
+<% render "table" %>
+<%#= form_with model: @street do |form| %>
+<!--  <div id = "name">-->
+    <%#= form.label :street_name, style: "display: block" %>
+    <%#= form.number_field :street_name %>
+<!--  </div>-->
+<!--  <div id = "latitude">-->
+    <%#= form.label :latitude, style: "display: block" %>
+    <%#= form.number_field :latitude %>
+<!--  </div>-->
+<!--  <div id = "longitude">-->
+    <%#= form.label :longitude, style: "display: block" %>
+    <%#= form.number_field :longitude %>
+<!--  </div>-->
+<!--  <div>-->
+    <%#= form.submit %>
+<!--  </div>-->
+<%# end %>
+
+<!--<div id="name" type="text"> </div>-->
+<!--<div id="latitude" type="text" > </div>-->
+<!--<div id="longitude" type="text"> </div>-->
+
+
+
+
+
+
+<script>
+
+
+
+
+</script>
+
+<%# street = Street.create(city: z, longitude: x, latitude: y) %>
+
+
+
+
+
+</body>
+
+</html>
+
+<!--<p style="color: green"><%#= notice %></p>-->
+<!--<style>-->
+<!--    h1 {font-family: Avenir, fantasy;}-->
+<!--    h5 {font-family: Avenir, fantasy; font-size: 20px; color: #01256e; font-weight: bold}-->
+<!--    h6 {font-family: Avenir, fantasy; font-size: 17px; color: #01256e;}-->
+<!--    h7 {font-family: Avenir, fantasy; font-size: 20px; font-weight: bold}-->
+<!--    h9 {font-family: Avenir, fantasy; font-size: 17px; }-->
+<!--</style>-->
+
+<!--<h1> User Info</h1>-->
+
+<%#= render @user %>
+
+<!--<div class="col-md-12 bg-light text-right ">-->
+<!--  <h5>-->
+    <%# if current_user.eql? @user %>
+<!--      <a class="btn btn-outline-primary" href="<%#= edit_user_path(current_user) %>"  role ="button"> Edit User</a>-->
+
+<!--      button_to "Edit this user", edit_user_path(@user), method: :post  --->
+    <%# end %>
+<!--    <a class="btn btn-outline-primary" href="<%#= users_path %>"  role ="button"> Back to Users</a>-->
+<!--      </h5>-->
+
+<!--</div>-->
+
+<!--<p>-->
+<%# if @user.is_instructor %>
+<!--  <h5> Courses Teaching</h5>-->
+  <%# end %>
+<%# unless @user.is_instructor %>
+<!--  <h5> Courses Taking </h5>-->
+  <%# end %>
+<!--</p>-->
+
+<!--<div class = "row row-cols-1 row-cols-md-2">-->
+  <%# Street.all.each do |course| %>
+<!--    <div class="col mb-4">-->
+      <%# if current_user.streets.include?(course) %>
+
+<!--      <div class="card" style="width: 18rem;">-->
+<!--        <div class="card-body">-->
+<!--          <p> <h5 class="card-title mb-2"> <%#= street.street_name %> </h5> </p>-->
+
+
+<!--          button_to "Course Info", course_path(course)  -->
+<!--          <a class = "btn btn-outline-primary btn-sm" href=" <%#= course_path(course) %>" role="button"> Course Info </a>-->
+
+          <%# if (current_user.eql? @user) && !(course.instructor.eql? @user)  %>
+<!--            <a class ="btn btn-outline-primary btn-sm"  href="/drop_course/<%#= current_user.id %>/<%#= course.id %>"-->
+<!--               role = "button"> Drop Course </a>-->
+          <%# end %>
+          <%# if course.instructor.eql? current_user %>
+<!--            <a href="#" class="card-link">-->
+              <%#= button_to "Edit", edit_course_path(course) %>
+<!--            </a>-->
+          <%# end %>
+<!--        </div>-->
+        <%# end %>
+<!--      </div>-->
+<!--    </div>-->
+
+  <%# end %>
+<!--</div>-->
+

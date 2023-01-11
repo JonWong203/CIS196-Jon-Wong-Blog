@@ -1,0 +1,100 @@
+
+<html>
+<div id="map">
+</div>
+<style>
+    #map{
+        height:700px;
+        width:100%;
+    }
+</style>
+<script>
+
+    function initAutocomplete() {
+        const map = new google.maps.Map(document.getElementById("map"), {
+            center: { lat: 0, lng: 30 },
+            zoom: 2,
+            mapTypeId: "roadmap",
+        });
+
+        // Create the search box and link it to the UI element.
+        const input = document.getElementById("pac-input");
+        const searchBox = new google.maps.places.SearchBox(input);
+
+        map.addListener("bounds_changed", () => {
+            searchBox.setBounds(map.getBounds());
+        });
+
+        let markers = [];
+
+        // Listen for the event fired when the user selects a prediction and retrieve
+        // more details for that place.
+        searchBox.addListener("places_changed", () => {
+            const places = searchBox.getPlaces();
+            if (places.length == 0) {
+                return;
+            }
+            // For each place, get the icon, name and location.
+            const bounds = new google.maps.LatLngBounds();
+
+            places.forEach((place) => {
+                if (!place.geometry || !place.geometry.location) {
+                    console.log("Returned place contains no geometry");
+                    return;
+                }
+
+                document.getElementById('name').textContent += place.formatted_address;
+                document.getElementById('latitude').textContent += place.geometry['location'].lat();
+                document.getElementById('longitude').textContent += place.geometry['location'].lng();
+
+                var marker = new google.maps.Marker({
+                    position: place.geometry.location,
+                    map:map
+                });
+                markers.push(marker);
+
+                if (place.geometry.viewport) {
+                    // Only geocodes have viewport.
+                    bounds.union(place.geometry.viewport);
+                } else {
+                    bounds.extend(place.geometry.location);
+                }
+            });
+            map.fitBounds(bounds);
+        });
+
+        let marks = [];
+        var table = document.getElementById("table"), rIndex, cIndex;
+        for (var i = 0; i  < table.rows.length; i++){
+            console.log("reached");
+            var lat = table.rows[i].cells[1].innerText;
+            var long = table.rows[i].cells[2].innerText;
+            let marker = new google.maps.Marker({
+                position: new google.maps.LatLng(lat,long),
+                map:map
+            });
+            markers.push(marker);
+        }
+
+    }
+
+
+    window.initAutocomplete = initAutocomplete;
+</script>
+
+
+<!--<script  defer-->
+<!--        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD5UU8paF_r2V1m4SF_G1ugD7olOGsSICw&libraries=places&callback=initAutocomplete">-->
+<!--</script>-->
+<!--<script-->
+<!--  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD5UU8paF_r2V1m4SF_G1ugD7olOGsSICw&callback=initMap&v=weekly"-->
+<!--   defer>-->
+<!--</script>-->
+
+<script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD5UU8paF_r2V1m4SF_G1ugD7olOGsSICw&callback=initAutocomplete&libraries=places&v=weekly"
+     defer>
+</script>
+
+</script>
+</html>
